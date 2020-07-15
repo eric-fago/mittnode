@@ -1,38 +1,129 @@
+html, body, #root {
+	height: 100%;
+}
+
 .App {
-  text-align: center;
+	height: 100%;
+	display: grid;
+	grid-template-rows: fit-content(100%) auto;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.App-head {
+	padding: 10px;
+	box-sizing: border-box;
+	background-color: #0B3954;
+	color: #FFFFFF;
+	font-size: 2em;
+	font-weight: bold;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.App-main {
+	display: grid;
+	grid-template-columns: 300px 300px 300px auto;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.Item {
+	box-sizing: border-box;
+	border-right: 1px dashed #BFD7EA;
 }
 
-.App-link {
-  color: #61dafb;
+.Item-missing {
+	padding-top: 80px;
+	font-size: 1.5em;
+	text-align: center;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.Item-list-create {
+	height: 40px;
+	border-bottom: 1px solid #BFD7EA
+}
+
+.Item-list {
+	box-sizing: border-box;
+	padding-top: 10px;
+	overflow-y: auto;
+}
+
+.ItemHeader {
+	height: 40px;
+	padding-left: 10px;
+	display: grid;
+	grid-template-columns: auto fit-content(100%);
+}
+
+.ItemHeader input {
+	min-width: 0;
+	margin: 10px 0;
+	display: inline-block;
+	border: none;
+	border-bottom: 1px solid #BFD7EA;
+	font-size: 1.2em;
+}
+
+.ItemHeader input:focus {
+	outline: none;
+}
+
+.ListItem {
+	box-sizing: border-box;
+	height: 40px;
+	padding: 5px 10px;
+	font-size: 1.5em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.ListItem:hover {
+	background-color: #BFD7EA;
+}
+
+.ListItem-selected {
+	background: #087E8B;
+	color: #FFFFFF;
+}
+
+.ListItem-selected:hover {
+	background: #077380;
+	color: #FFFFFF;
+}
+
+.Page {
+	box-sizing: border-box;
+}
+
+.Page-missing {
+	padding-top: 80px;
+	font-size: 1.5em;
+	text-align: center;
+}
+
+.Page-text {
+	padding: 10px;
+}
+
+.Page-text textarea {
+	box-sizing: border-box;
+	width: 100%;
+}
+
+.Button {
+	box-sizing: border-box;
+	height: 30px;
+	margin: 5px;
+	display: inline-block;
+	cursor: pointer;
+}
+
+.Button:hover {
+	background-color: #BFD7EA
+}
+
+.Button img {
+	width: 20px;
+	height: 20px;
+	margin: 5px;
+}
+
+.Button span {
+  display: inline-block;
 }
