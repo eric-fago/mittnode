@@ -77,7 +77,7 @@ class App extends React.Component {
 			const nextId = state.nextId;
 			const books = [...state.books];
 			books.push({ id: nextId, name: 'Book ' + nextId });
-			return { nextId: nextId + 1, books };
+			return { nextId: nextId + 1, books, bookSelectId: nextId, sectionSelectId: null, pageSelectId: null };
 		});
 	};
 
@@ -109,7 +109,7 @@ class App extends React.Component {
 	deleteBook = (id) => {
 		this.setState((state) => {
 			const books = state.books.filter(b => b.id !== id);
-			return { books };
+			return { books, bookSelectId: null, sectionSelectId: null, pageSelectId: null };
 		});
 	};
 
@@ -121,7 +121,7 @@ class App extends React.Component {
 			const nextId = state.nextId;
 			const sections = [...state.sections];
 			sections.push({ id: nextId, bookId: book.id, name: 'Section ' + nextId });
-			return { nextId: nextId + 1, sections };
+			return { nextId: nextId + 1, sections, sectionSelectId: nextId, pageSelectId: null };
 		})
 	};
 
@@ -151,7 +151,7 @@ class App extends React.Component {
 	deleteSection = (id) => {
 		this.setState((state) => {
 			const sections = state.sections.filter(s => s.id !== id);
-			return { sections };
+			return { sections, sectionSelectId: null, pageSelectId: null };
 		});
 	};
 
@@ -162,7 +162,7 @@ class App extends React.Component {
 
 			const nextId = state.nextId;
 			const pages = [...state.pages];
-			pages.push({ id: nextId, sectionId: section.id, name: 'Page ' + nextId });
+			pages.push({ id: nextId, sectionId: section.id, name: 'Page ' + nextId, text: '' });
 			return { nextId: nextId + 1, pageSelectId: nextId, pages };
 		})
 	};
@@ -200,7 +200,7 @@ class App extends React.Component {
 	deletePage = (id) => {
 		this.setState((state) => {
 			const pages = state.pages.filter(p => p.id !== id);
-			return { pages };
+			return { pages, pageSelectId: null };
 		});
 	};
 

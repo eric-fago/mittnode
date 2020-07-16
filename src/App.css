@@ -1,16 +1,24 @@
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
+
 html, body, #root {
+	width: 100%;
 	height: 100%;
 }
 
 .App {
+	width: 100%;
 	height: 100%;
-	display: grid;
-	grid-template-rows: fit-content(100%) auto;
+	display: flex;
+	flex-direction: column;
 }
 
 .App-head {
 	padding: 10px;
-	box-sizing: border-box;
 	background-color: #0B3954;
 	color: #FFFFFF;
 	font-size: 2em;
@@ -18,13 +26,18 @@ html, body, #root {
 }
 
 .App-main {
-	display: grid;
-	grid-template-columns: 300px 300px 300px auto;
+	width: 100%;
+	height: 100%;
+	flex: 1;
+	display: flex;
 }
 
 .Item {
-	box-sizing: border-box;
-	border-right: 1px dashed #BFD7EA;
+	width: 300px;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	border-right: 1px dashed #087E8B;
 }
 
 .Item-missing {
@@ -35,11 +48,11 @@ html, body, #root {
 
 .Item-list-create {
 	height: 40px;
-	border-bottom: 1px solid #BFD7EA
+	border-bottom: 1px solid #087E8B
 }
 
 .Item-list {
-	box-sizing: border-box;
+	flex: 1;
 	padding-top: 10px;
 	overflow-y: auto;
 }
@@ -58,6 +71,7 @@ html, body, #root {
 	border: none;
 	border-bottom: 1px solid #BFD7EA;
 	font-size: 1.2em;
+	overflow: initial;
 }
 
 .ItemHeader input:focus {
@@ -65,12 +79,14 @@ html, body, #root {
 }
 
 .ListItem {
-	box-sizing: border-box;
 	height: 40px;
+	margin-right: 10px;
 	padding: 5px 10px;
 	font-size: 1.5em;
 	overflow: hidden;
 	text-overflow: ellipsis;
+	white-space: nowrap;
+	cursor: pointer;
 }
 
 .ListItem:hover {
@@ -88,7 +104,10 @@ html, body, #root {
 }
 
 .Page {
-	box-sizing: border-box;
+	height: 100%;
+	flex: 1;
+	display: flex;
+	flex-direction: column;
 }
 
 .Page-missing {
@@ -97,21 +116,37 @@ html, body, #root {
 	text-align: center;
 }
 
+.Page-tool {
+	height: 40px;
+	padding: 10px;
+	border-bottom: 1px solid #087E8B;
+}
+
 .Page-text {
+	height: 100%;
+	flex: 1;
 	padding: 10px;
 }
 
 .Page-text textarea {
-	box-sizing: border-box;
+	display: inline-block;
+	height: 100%;
 	width: 100%;
+	overflow-y: auto;
+	border: none;
+	resize: none;;
+}
+
+.Page-text textarea:focus {
+	outline: none;
 }
 
 .Button {
-	box-sizing: border-box;
 	height: 30px;
 	margin: 5px;
 	display: inline-block;
 	cursor: pointer;
+	user-select: none;
 }
 
 .Button:hover {
@@ -125,5 +160,6 @@ html, body, #root {
 }
 
 .Button span {
-  display: inline-block;
+	display: inline-block;
+	margin: 5px;
 }

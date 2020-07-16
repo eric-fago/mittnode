@@ -5,7 +5,7 @@ const Button = ({ icon, text, handle, children }) => {
 	const textMarkup = children ? (<span>{children}</span>) : '';
 
 	return (
-		<span className="Button" onClick={handle}>
+		<span className="Button" onClick={handle} title={text}>
 			{iconMarkup}
 			{textMarkup}
 		</span>

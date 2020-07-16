@@ -4,7 +4,7 @@ const ListItem = ({ item, itemSelected, handleSelect }) => {
 	const className = "ListItem" + (item === itemSelected ? ' ListItem-selected' : '');
 
 	return (
-		<div className={className} onClick={handleSelect}>{item.name}</div>
+		<div className={className} onClick={handleSelect}>{item.name || '(no name)'}</div>
 	);
 };
 

@@ -10,7 +10,7 @@ const ItemHeader = ({ item, handleChange, handleDelete }) => {
 
 	return (
 		<div className="ItemHeader">
-			<input onChange={handleChange} value={item.name} />
+			<input onChange={handleChange} value={item.name} placeholder="(no name)" />
 			<Button icon={deleteIcon} text="Delete" handle={handleDelete} />
 		</div>
 	);

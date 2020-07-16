@@ -18,7 +18,7 @@ const Items = ({ itemType, item, handleChange, handleDelete, listType, list, lis
 		<div className="Item">
 			<ItemHeader item={item} handleChange={handleChange} handleDelete={handleDelete} />
 			<div className="Item-list-create">
-				<Button icon={createIcon} text={'Add ' + listType} handle={handleCreate}>Add {listType}</Button>
+				<Button icon={createIcon} text={'Add a ' + listType} handle={handleCreate}>Add a {listType}</Button>
 			</div>
 			<div className="Item-list">
 				{list.map(i => <ListItem key={i.id} item={i} itemSelected={listSelected} handleSelect={() => handleSelect(i.id)} />)}
