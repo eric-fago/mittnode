@@ -17,11 +17,23 @@ html, body, #root {
 	flex-direction: column;
 
 	.head {
+		height: 50px;
 		padding: 10px;
 		background-color: #0B3954;
-		color: #FFFFFF;
-		font-size: 2em;
-		font-weight: bold;
+
+		.logo {
+			height: 25px;
+			width: 25px;
+			fill: white;
+			stroke: white;
+		}
+
+		.text {
+			margin-left: 10px;
+			color: #FFFFFF;
+			font-size: 2em;
+			font-weight: bold;
+		}
 	}
 
 	.main {

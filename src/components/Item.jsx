@@ -3,7 +3,7 @@ import Button from './Button';
 import ItemHeader from './ItemHeader';
 import ListItem from './ListItem';
 
-import createIcon from '../icons/create.png';
+import createIcon from '../assets/create.png';
 import './Item.scss';
 
 const Items = ({ itemType, item, handleChange, handleDelete, listType, list, listSelected, handleCreate, handleSelect }) => {

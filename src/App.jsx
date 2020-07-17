@@ -2,6 +2,7 @@ import React from 'react';
 import Item from './components/Item';
 import Page from './components/Page';
 
+import { ReactComponent as Logo } from './assets/logo.svg';
 import './App.scss';
 
 class App extends React.Component {
@@ -214,7 +215,10 @@ class App extends React.Component {
 
 		return (
 			<div className="App">
-				<div className="head">Mittnode</div>
+				<div className="head">
+					<Logo className="logo" />
+					<span className="text">Mittnode</span>
+				</div>
 				<div className="main">
 					<Item
 						listType="Book"
