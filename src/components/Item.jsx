@@ -6,7 +6,7 @@ import ListItem from './ListItem';
 import createIcon from '../assets/create.png';
 import './Item.scss';
 
-const Items = ({ itemType, item, handleChange, handleDelete, listType, list, listSelected, handleCreate, handleSelect }) => {
+const Items = ({ name, itemType, item, handleChange, handleDelete, listType, list, listSelected, handleCreate, handleSelect }) => {
 	if (itemType && !item) return (
 		<div className="Item">
 			<div className="missing">
@@ -17,7 +17,11 @@ const Items = ({ itemType, item, handleChange, handleDelete, listType, list, lis
 
 	return (
 		<div className="Item">
-			<ItemHeader item={item} handleChange={handleChange} handleDelete={handleDelete} />
+			{
+				name
+					? <div className="name">{name}</div>
+					: <ItemHeader item={item} handleChange={handleChange} handleDelete={handleDelete} />
+			}
 			<div className="list-create">
 				<Button icon={createIcon} text={'Add a ' + listType} handle={handleCreate}>Add a {listType}</Button>
 			</div>

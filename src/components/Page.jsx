@@ -17,7 +17,7 @@ const Page = ({ item, handleChangeName, handleChangeText, handleDelete }) => {
 			<ItemHeader item={item} handleChange={handleChangeName} handleDelete={handleDelete} />
 			<div className="tool"><i>(this is where the toolbar will be)</i></div>
 			<div className="text">
-				<textarea onChange={handleChangeText} value={item.text} placeholder="(no text)" />
+				<textarea onChange={(e) => handleChangeText(e.target.value)} value={item.text} placeholder="(no text)" />
 			</div>
 		</div>
 	);
