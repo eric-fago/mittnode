@@ -1,14 +1,16 @@
 import React from 'react';
 
+import './Button.scss';
+
 const Button = ({ icon, text, handle, children }) => {
-	const iconMarkup = icon ? (<img src={icon} alt={text} />) : '';
-	const textMarkup = children ? (<span>{children}</span>) : '';
+	const iconMarkup = icon ? (<img className="icon" src={icon} alt={text} />) : '';
+	const textMarkup = children ? (<span className="text">{children}</span>) : '';
 
 	return (
-		<span className="Button" onClick={handle} title={text}>
+		<button className="Button" onClick={handle} title={text}>
 			{iconMarkup}
 			{textMarkup}
-		</span>
+		</button>
 	);
 };
 

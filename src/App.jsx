@@ -2,7 +2,7 @@ import React from 'react';
 import Item from './components/Item';
 import Page from './components/Page';
 
-import './App.css';
+import './App.scss';
 
 class App extends React.Component {
 	state = {
@@ -214,8 +214,8 @@ class App extends React.Component {
 
 		return (
 			<div className="App">
-				<div className="App-head">Mittnode</div>
-				<div className="App-main">
+				<div className="head">Mittnode</div>
+				<div className="main">
 					<Item
 						listType="Book"
 						list={selectedBooks}

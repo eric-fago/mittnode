@@ -1,0 +1,24 @@
+.ListItem {
+	height: 40px;
+	margin-right: 10px;
+	padding: 5px 10px;
+	font-size: 1.5em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	cursor: pointer;
+
+	&:hover {
+		background-color: #BFD7EA;
+	}
+
+	&.selected {
+		background: #087E8B;
+		color: #FFFFFF;
+
+		&:hover {
+			background: #077380;
+			color: #FFFFFF;
+		}
+	}
+}

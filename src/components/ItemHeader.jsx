@@ -2,6 +2,7 @@ import React from 'react';
 import Button from './Button';
 
 import deleteIcon from '../icons/delete.png';
+import './ItemHeader.scss';
 
 const ItemHeader = ({ item, handleChange, handleDelete }) => {
 	if (!item) return (

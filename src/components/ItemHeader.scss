@@ -1,0 +1,20 @@
+.ItemHeader {
+	height: 40px;
+	padding-left: 10px;
+	display: grid;
+	grid-template-columns: auto fit-content(100%);
+
+	input {
+		min-width: 0;
+		margin: 10px 0;
+		display: inline-block;
+		border: none;
+		border-bottom: 1px solid #BFD7EA;
+		font-size: 1.2em;
+		overflow: initial;
+
+		&:focus {
+			outline: none;
+		}
+	}
+}

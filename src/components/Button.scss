@@ -1,0 +1,42 @@
+.Button {
+	height: 30px;
+	margin: 5px;
+	display: inline-block;
+	background: none;
+	border: none;
+	border-radius: 7px;
+	font-weight: normal;
+	font-size: 1em;
+	font-family: inherit;
+	cursor: pointer;
+	user-select: none;
+
+	&:hover {
+		background-color: #BFD7EA
+	}
+
+	&:active {
+		background-color: #077380;
+		color: white;
+	}
+
+	&:focus {
+		outline: none;
+	}
+
+	.icon {
+		width: 20px;
+		height: 20px;
+		margin: 5px;
+	}
+
+	.text {
+		display: inline-block;
+		margin: 5px;
+	}
+}
+
+
+
+
+

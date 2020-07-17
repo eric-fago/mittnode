@@ -1,0 +1,24 @@
+.Item {
+	width: 300px;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	border-right: 1px dashed #087E8B;
+
+	.missing {
+		padding-top: 80px;
+		font-size: 1.5em;
+		text-align: center;
+	}
+
+	.list-create {
+		height: 40px;
+		border-bottom: 1px solid #087E8B
+	}
+
+	.list {
+		flex: 1;
+		padding-top: 10px;
+		overflow-y: auto;
+	}
+}
