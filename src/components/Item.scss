@@ -1,33 +1,38 @@
 .Item {
-	width: 300px;
 	height: 100%;
 	display: flex;
 	flex-direction: column;
-	border-right: 1px dashed #087E8B;
 
-	.missing {
-		padding-top: 80px;
-		font-size: 1.5em;
-		text-align: center;
+	&.miss {
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size:1.2em;
 	}
 
-	.name {
+	>.head {
 		height: 40px;
-		padding: 10px;
-		font-size: 1.5em;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
+		margin-left: 10px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+
+		>input {
+			flex: 1;
+			display: inline-block;
+			border: none;
+			border-bottom: 1px solid #BFD7EA;
+			font-size: 1.2em;
+			overflow: initial;
+	
+			&:focus {
+				outline: none;
+			}
+		}
 	}
 
-	.list-create {
-		height: 40px;
-		border-bottom: 1px solid #087E8B
-	}
-
-	.list {
+	>.main {
 		flex: 1;
-		padding-top: 10px;
-		overflow-y: auto;
 	}
 }

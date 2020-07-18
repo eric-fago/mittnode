@@ -1,0 +1,40 @@
+.Books {
+	width: 300px;
+	margin-left: 10px;
+
+	&:hover {
+		>.drop {
+			display: initial;
+		}
+	}
+
+	>.head {
+		display: flex;
+		color: white;
+		font-size: 2em;
+		font-weight: bold;
+		cursor: pointer;
+
+		>.name {
+			max-width: 260px;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+		}
+
+		>.icon {
+			height: 30px;
+			width: 30px;
+			margin: 5px 0 0 10px;
+		}
+	}
+
+	>.drop {
+		display: none;
+		z-index: 5;
+		position: absolute;
+		height: 400px;
+		width: 300px;
+		background-color: white;
+		border: 1px solid #0B3954
+	}
+}

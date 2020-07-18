@@ -1,30 +1,26 @@
 .Page {
 	height: 100%;
-	flex: 1;
+	width: 100%;
 	display: flex;
 	flex-direction: column;
 
-	.missing {
-		padding-top: 80px;
-		font-size: 1.5em;
-		text-align: center;
-	}
-
-	.tool {
-		height: 40px;
-		padding: 10px;
+	>.tool {
+		flex: 0 40px;
 		border-bottom: 1px solid #087E8B;
+		display: flex;
+		align-items: center;
+		justify-content: center ;
 	}
 
-	.text {
-		height: 100%;
+	>.text {
 		flex: 1;
-		padding: 10px;
+		height: 100%;
+		width: 100%;
 
-		textarea {
-			display: inline-block;
+		>textarea {
 			height: 100%;
 			width: 100%;
+			padding: 5px 10px;
 			overflow-y: auto;
 			border: none;
 			resize: none;

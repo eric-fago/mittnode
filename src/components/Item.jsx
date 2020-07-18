@@ -1,35 +1,24 @@
 import React from 'react';
+
 import Button from './Button';
-import ItemHeader from './ItemHeader';
-import ListItem from './ListItem';
 
-import createIcon from '../assets/create.png';
 import './Item.scss';
+import deleteIcon from '../assets/delete.png';
 
-const Items = ({ name, itemType, item, handleChange, handleDelete, listType, list, listSelected, handleCreate, handleSelect }) => {
-	if (itemType && !item) return (
-		<div className="Item">
-			<div className="missing">
-				Select a {itemType}
-			</div>
-		</div>
-	);
+const Item = ({ item, handleUpdate, handleDelete, children }) => {
+	if (!item) return <div className="Item miss">(nothing selected)</div>;
 
 	return (
 		<div className="Item">
-			{
-				name
-					? <div className="name">{name}</div>
-					: <ItemHeader item={item} handleChange={handleChange} handleDelete={handleDelete} />
-			}
-			<div className="list-create">
-				<Button icon={createIcon} text={'Add a ' + listType} handle={handleCreate}>Add a {listType}</Button>
+			<div className="head">
+				<input onChange={(e) => handleUpdate(e.target.value)} value={item.name} placeholder="(no name)" />
+				<Button icon={deleteIcon} text="Delete" handle={handleDelete} />
 			</div>
-			<div className="list">
-				{list.map(i => <ListItem key={i.id} item={i} itemSelected={listSelected} handleSelect={() => handleSelect(i.id)} />)}
+			<div className="main">
+				{children}
 			</div>
 		</div>
-	);
-}
+	)
+};
 
-export default Items;
+export default Item;

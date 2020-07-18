@@ -1,26 +1,19 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
-import Button from './Button';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
-import configIcon from '../assets/config.png';
-import './BookItem.scss';
+import ListItem from './ListItem';
+import { selectBook } from '../redux/book/bookActions';
+import { selectBookId } from '../redux/book/bookSelectors';
 
-const handleSelect = ({ history, id }) => {
-	history.push(`/book/${id}`);
-};
-
-const handleConfig = ({ history, event, id }) => {
-	event.stopPropagation();
-	history.push(`/book/${id}/conf`);
-};
-
-const BookItem = ({ id, name, history }) => (
-	<div className="BookItem" onClick={(event) => handleSelect({ history, event, id })}>
-		<span className="text">{name}</span>
-		<span className="conf">
-			<Button icon={configIcon} text="Config" handle={(event) => handleConfig({ history, event, id })} />
-		</span>
-	</div>
+const BookItem = ({ book, selectedBookId, selectBook }) => (
+	<ListItem item={book} selected={book.id === selectedBookId} handleSelect={() => selectBook(book)} />
 );
 
-export default withRouter(BookItem);
+const mapStateToProps = createStructuredSelector({
+	selectedBookId: selectBookId
+});
+const mapDispatchToProps = (dispatch) => ({
+	selectBook: (book) => dispatch(selectBook(book))
+});
+export default connect(mapStateToProps, mapDispatchToProps)(BookItem);
