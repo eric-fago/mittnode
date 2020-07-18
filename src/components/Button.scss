@@ -24,6 +24,21 @@
 		outline: none;
 	}
 
+	&.alternate {
+		background-color: #077380;
+		color: white;
+
+		&:hover {
+			background-color: #BFD7EA;
+			color: black;
+		}
+
+		&:active {
+			background-color: #077380;
+			color: white;
+		}
+	}
+
 	.icon {
 		width: 20px;
 		height: 20px;

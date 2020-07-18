@@ -1,33 +1,38 @@
 import React from 'react';
-import { Link, Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
-import Books from './components/Books';
+import Header from './components/Header';
+import { auth } from './firebase/firebase'
+import AuthPage from './pages/AuthPage';
 import BookPage from './pages/BookPage';
 import { initialize } from './redux/book/bookActions';
+import { setCurrentUser } from './redux/user/userActions';
+import { selectCurrentUser } from './redux/user/userSelectors';
 
 import './App.scss';
-import { ReactComponent as Logo } from './assets/logo.svg';
 
 class App extends React.Component {
 
 	componentDidMount() {
-		this.props.dispatch(initialize());
+		this.props.initialize();
+
+		this.unsubsribeFromAuth = auth.onAuthStateChanged(user => {
+			this.props.setCurrentUser(user);
+		});
 	}
 
 	render() {
 		return (
 			<div className="App">
 				<div className="head">
-					<Link to="/">
-						<Logo className="logo" />
-						<span className="text">Mittnode</span>
-					</Link>
-					<Books />
+					<Header />
 				</div>
 				<div className="main">
 					<Switch>
-						<Route path="/" component={BookPage} />
+						<Route exact path="/auth" render={() => this.props.currentUser ? <Redirect to="/" /> : <AuthPage />} />
+						<Route path="/" render={() => this.props.currentUser ? <BookPage /> : <Redirect to="/auth" />} />
 					</Switch>
 				</div>
 			</div>
@@ -35,4 +40,11 @@ class App extends React.Component {
 	}
 }
 
-export default connect()(App);
+const mapStateToProps = createStructuredSelector({
+	currentUser: selectCurrentUser
+});
+const mapDispatchToProps = (dispatch) => ({
+	initialize: () => dispatch(initialize()),
+	setCurrentUser: (user) => dispatch(setCurrentUser(user))
+});
+export default connect(mapStateToProps, mapDispatchToProps)(App);

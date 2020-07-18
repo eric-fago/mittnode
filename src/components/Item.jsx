@@ -12,7 +12,7 @@ const Item = ({ item, handleUpdate, handleDelete, children }) => {
 		<div className="Item">
 			<div className="head">
 				<input onChange={(e) => handleUpdate(e.target.value)} value={item.name} placeholder="(no name)" />
-				<Button icon={deleteIcon} text="Delete" handle={handleDelete} />
+				<Button icon={deleteIcon} text="DELETE" handle={handleDelete} />
 			</div>
 			<div className="main">
 				{children}

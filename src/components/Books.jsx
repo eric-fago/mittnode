@@ -17,7 +17,7 @@ const Books = ({ book, books, createBook }) => (
 			<img src={downIcon} alt="down" className="icon" />
 		</div>
 		<div className="drop">
-			<List createText="Add a Book" handleCreate={createBook}>
+			<List createText="ADD A BOOK" handleCreate={createBook}>
 				{books.map(book => <BookItem key={book.id} book={book} />)}
 			</List>
 		</div>

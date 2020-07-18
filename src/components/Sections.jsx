@@ -8,7 +8,7 @@ import { createSection } from '../redux/book/bookActions';
 import { selectSections } from '../redux/book/bookSelectors';
 
 const Sections = ({ sections, createSection }) => (
-	<List createText="Add a Section" handleCreate={createSection}>
+	<List createText="ADD A SECTION" handleCreate={createSection}>
 		{sections.map(section => <SectionItem key={section.id} section={section} />)}
 	</List>
 );

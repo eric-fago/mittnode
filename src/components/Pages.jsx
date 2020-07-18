@@ -10,7 +10,7 @@ import { selectPages } from '../redux/book/bookSelectors';
 import './Pages.scss';
 
 const Pages = ({ pages, createPage }) => (
-	<List createText="Add a Page" handleCreate={createPage}>
+	<List createText="ADD A PAGE" handleCreate={createPage}>
 		{pages.map(page => <PageItem key={page.id} page={page} />)}
 	</List>
 );
