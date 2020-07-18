@@ -14,7 +14,7 @@ const Books = ({ book, books, createBook }) => (
 	<div className="Books">
 		<div className="head">
 			<span className="name">/ {book ? (book.name || '(no name)') : '(nothing selected)'} </span>
-			<img src={downIcon} className="icon" />
+			<img src={downIcon} alt="down" className="icon" />
 		</div>
 		<div className="drop">
 			<List createText="Add a Book" handleCreate={createBook}>
