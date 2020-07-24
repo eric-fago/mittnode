@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
+import BlurTextArea from './BlurTextArea';
 import Item from './Item';
 import { selectPage, selectPageIsLoading } from '../redux/book/bookSelectors';
 import { updatePageAsync, deletePageAsync } from '../redux/book/bookActions';
@@ -17,9 +18,10 @@ const Page = ({ isLoading, page, updatePageAsync, deletePageAsync }) => (
 		<div className="Page">
 			<div className="tool"><i>(this is where the toolbar will be)</i></div>
 			<div className="text">
-				<textarea
+				<BlurTextArea
+					id={page && page.id}
 					value={page && page.text}
-					onChange={(event) => updatePageAsync({ ...page, text: event.target.value })}
+					onChange={(value) => updatePageAsync({ ...page, text: value })}
 					placeholder="(no text)" />
 			</div>
 		</div>

@@ -1,5 +1,6 @@
 import React from 'react';
 
+import BlurInput from './BlurInput';
 import Button from './Button';
 import ItemMissing from './ItemMissing';
 import Spinner from './Spinner';
@@ -13,7 +14,11 @@ const Item = ({ isLoading, item, handleUpdate, handleDelete, children }) => (
 		<Spinner isLoading={isLoading}>
 			<ItemMissing item={item}>
 				<div className="head">
-					<input onChange={(e) => handleUpdate(e.target.value)} value={item && item.name} placeholder="(no name)" />
+					<BlurInput
+						id={item && item.id}
+						value={item && item.name}
+						onChange={(name) => handleUpdate(name)}
+						placeholder="(no name)" />
 					<Button icon={deleteIcon} text="DELETE" handle={handleDelete} />
 				</div>
 				<div className="main">
