@@ -1,17 +1,31 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import Book from '../components/Book';
 import Page from '../components/Page';
 import Section from '../components/Section';
+import { initializeAsync } from '../redux/book/bookActions';
 
 import './BookPage.scss';
 
-const BookPage = () => (
-	<div className="BookPage">
-		<Book />
-		<Section />
-		<Page />
-	</div>
-);
+class BookPage extends React.Component {
+	componentDidMount() {
+		const { initializeAsync } = this.props;
+		initializeAsync();
+	}
 
-export default BookPage;
+	render() {
+		return (
+			<div className="BookPage">
+				<Book />
+				<Section />
+				<Page />
+			</div>
+		)
+	}
+};
+
+const mapDispatchToProps = (dispatch) => ({
+	initializeAsync: () => dispatch(initializeAsync())
+});
+export default connect(null, mapDispatchToProps)(BookPage);

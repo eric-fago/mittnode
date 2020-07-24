@@ -7,7 +7,6 @@ import Header from './components/Header';
 import { auth } from './firebase/firebase'
 import AuthPage from './pages/AuthPage';
 import BookPage from './pages/BookPage';
-import { initialize } from './redux/book/bookActions';
 import { setCurrentUser } from './redux/user/userActions';
 import { selectCurrentUser } from './redux/user/userSelectors';
 
@@ -16,8 +15,6 @@ import './App.scss';
 class App extends React.Component {
 
 	componentDidMount() {
-		this.props.initialize();
-
 		this.unsubsribeFromAuth = auth.onAuthStateChanged(user => {
 			this.props.setCurrentUser(user);
 		});
@@ -44,7 +41,6 @@ const mapStateToProps = createStructuredSelector({
 	currentUser: selectCurrentUser
 });
 const mapDispatchToProps = (dispatch) => ({
-	initialize: () => dispatch(initialize()),
 	setCurrentUser: (user) => dispatch(setCurrentUser(user))
 });
 export default connect(mapStateToProps, mapDispatchToProps)(App);

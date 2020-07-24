@@ -1,150 +1,102 @@
-let nextId = 3000000;
-
-const data = {
-	books: [
-		{
-			id: 1,
-			name: 'Book 1',
-			section: [
-
-			]
-		},
-		{
-			id: 2,
-			name: 'Book 2',
-			section: [
-			]
-		}
-	],
-	sections: [
-		{
-			id: 101,
-			bookId: 1,
-			name: 'Book 1 Section 1',
-		},
-		{
-			id: 102,
-			bookId: 1,
-			name: 'Book 1 Section 2',
-		},
-
-		{
-			id: 201,
-			bookId: 2,
-			name: 'Book 2 Section 1',
-		},
-		{
-			id: 202,
-			bookId: 2,
-			name: 'Book 2 Section 2',
-		}
-	],
-	pages: [
-		{
-			id: 10101,
-			sectionId: 101,
-			name: 'Book 1 Section 1 Page 1',
-			text: 'This is some test text!'
-		},
-		{
-			id: 10102,
-			sectionId: 101,
-			name: 'Book 1 Section 1 Page 2',
-			text: 'This is some test text!'
-		}
-	]
-};
+import { firestore } from '../firebase/firebase';
 
 const dataService = {
-
 	book: {
-		create: ({ name }) => {
-			const book = { id: nextId++, name };
-			data.books.push(book);
-			return { ...book };
+		create: async ({ name }) => {
+			const book = { name };
+			const booksRef = firestore.collection('books');
+			const bookRef = await booksRef.add(book);
+			return { id: bookRef.id, ...book };
 		},
 
-		readAll: () => {
-			return data.books.map(b => ({ ...b }));
+		readAll: async () => {
+			const booksRef = firestore.collection('books');
+			const booksSnapshot = await booksRef.get();
+			if (booksSnapshot.empty) return [];
+			const books = booksSnapshot.docs.map(bookDoc => ({
+				id: bookDoc.id,
+				...bookDoc.data()
+			}));
+			return books;
 		},
 
-		readOne: (id) => {
-			const book = data.books.find(b => b.id === id);
-			return book ? { ...book } : null;
+		update: async ({ id, name }) => {
+			const book = { name };
+			const bookRef = firestore.doc(`books/${id}`);
+			await bookRef.set(book);
+			return { id, ...book };
 		},
 
-		update: ({ id, name }) => {
-			const book = data.books.find(b => b.id === id);
-			if (!book) return null;
-			book.name = name;
-			return { ...book }
-		},
-
-		delete: (id) => {
-			data.books = data.books.filter(b => b.id !== id);
+		delete: async ({ id }) => {
+			const bookRef = firestore.doc(`books/${id}`);
+			await bookRef.delete();
 		}
 	},
 
 	section: {
-		create: ({ bookId, name }) => {
-			const book = data.books.find(b => b.id === bookId);
-			if (!book) throw new Error(`Book ${bookId} not found!`);
-
-			const section = { id: nextId++, bookId, name };
-			data.sections.push(section);
-			return { ...section };
+		create: async ({ bookId, name }) => {
+			const section = { name };
+			const sectionsRef = firestore.collection(`books/${bookId}/sections`);
+			const sectionRef = await sectionsRef.add(section);
+			return { id: sectionRef.id, bookId, name };
 		},
 
-		readAll: (bookId) => {
-			return data.sections.filter(s => s.bookId === bookId).map(s => ({ ...s }));
+		readAll: async ({ bookId }) => {
+			const sectionsRef = firestore.collection(`books/${bookId}/sections`);
+			const sectionsSnapshot = await sectionsRef.get();
+			if (sectionsSnapshot.empty) return [];
+			const sections = sectionsSnapshot.docs.map(sectionDoc => ({
+				id: sectionDoc.id,
+				bookId,
+				...sectionDoc.data()
+			}));
+			return sections;
 		},
 
-		readOne: (id) => {
-			const section = data.sections.find(s => s.id === id);
-			return section ? { ...section } : null;
+		update: async ({ id, bookId, name }) => {
+			const section = { name };
+			const sectionRef = firestore.doc(`books/${bookId}/sections/${id}`);
+			await sectionRef.set(section);
+			return { id, bookId, ...section };
 		},
 
-		update: ({ id, name }) => {
-			const section = data.sections.find(s => s.id === id);
-			if (!section) return null;
-			section.name = name;
-			return { ...section }
-		},
-
-		delete: (id) => {
-			data.sections = data.sections.filter(s => s.id !== id);
+		delete: async ({ bookId, id }) => {
+			const sectionRef = firestore.doc(`books/${bookId}/sections/${id}`);
+			await sectionRef.delete();
 		}
 	},
 
 	page: {
-		create: ({ sectionId, name, text }) => {
-			const section = data.sections.find(s => s.id === sectionId);
-			if (!section) throw new Error(`Section ${sectionId} not found!`);
-
-			const page = { id: nextId++, sectionId, name, text };
-			data.pages.push(page);
-			return { ...page };
+		create: async ({ bookId, sectionId, name, text }) => {
+			const page = { name, text };
+			const pagesRef = firestore.collection(`books/${bookId}/sections/${sectionId}/pages`);
+			const pageRef = await pagesRef.add(page);
+			return { id: pageRef.id, bookId, sectionId, ...page };
 		},
 
-		readAll: (sectionId) => {
-			return data.pages.filter(p => p.sectionId === sectionId).map(p => ({ ...p }));
+		readAll: async ({ bookId, sectionId }) => {
+			const pagesRef = firestore.collection(`books/${bookId}/sections/${sectionId}/pages`);
+			const pagesSnapshot = await pagesRef.get();
+			if (pagesSnapshot.empty) return [];
+			const pages = pagesSnapshot.docs.map(pageDoc => ({
+				id: pageDoc.id,
+				bookId,
+				sectionId,
+				...pageDoc.data()
+			}));
+			return pages;
 		},
 
-		readOne: (id) => {
-			const page = data.pages.find(p => p.id === id);
-			return page ? { ...page } : null;
+		update: async ({ id, bookId, sectionId, name, text }) => {
+			const page = { name, text };
+			const pageRef = firestore.doc(`books/${bookId}/sections/${sectionId}/pages/${id}`);
+			await pageRef.set(page);
+			return { id, bookId, sectionId, ...page };
 		},
 
-		update: ({ id, name, text }) => {
-			const page = data.pages.find(p => p.id === id);
-			if (!page) return null;
-			page.name = name;
-			page.text = text;
-			return { ...page }
-		},
-
-		delete: (id) => {
-			data.pages = data.pages.filter(p => p.id !== id);
+		delete: async ({ id, bookId, sectionId }) => {
+			const pageRef = firestore.doc(`books/${bookId}/sections/${sectionId}/pages/${id}`);
+			await pageRef.delete();
 		}
 	}
 };

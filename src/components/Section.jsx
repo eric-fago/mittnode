@@ -4,24 +4,26 @@ import { createStructuredSelector } from 'reselect';
 
 import Item from './Item';
 import Pages from './Pages';
-import { selectSection } from '../redux/book/bookSelectors';
-import { updateSection, deleteSection } from '../redux/book/bookActions';
+import { selectSectionIsLoading, selectSection } from '../redux/book/bookSelectors';
+import { updateSectionAsync, deleteSectionAsync } from '../redux/book/bookActions';
 
-const Section = ({ section, updateSection, deleteSection }) => (
+const Section = ({ isLoading, section, updateSectionAsync, deleteSectionAsync }) => (
 	<Item
+		isLoading={isLoading}
 		item={section}
-		handleUpdate={(value) => updateSection({ ...section, name: value })}
-		handleDelete={() => deleteSection(section)}
+		handleUpdate={(value) => updateSectionAsync({ ...section, name: value })}
+		handleDelete={() => deleteSectionAsync(section)}
 	>
 		<Pages />
 	</Item>
 );
 
 const mapStateToProps = createStructuredSelector({
+	isLoading: selectSectionIsLoading,
 	section: selectSection
 });
 const mapDispatchToProps = (dispatch) => ({
-	updateSection: (section) => dispatch(updateSection(section)),
-	deleteSection: (section) => dispatch(deleteSection(section))
+	updateSectionAsync: (section) => dispatch(updateSectionAsync(section)),
+	deleteSectionAsync: (section) => dispatch(deleteSectionAsync(section))
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Section);
