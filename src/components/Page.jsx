@@ -1,27 +1,30 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
-import BlurTextArea from './BlurTextArea';
+import BlurInput from './BlurInput';
 import Item from './Item';
+import withMissing from './withMissing';
+import withSpinner from './withSpinner';
 import { selectPage, selectPageIsLoading } from '../redux/book/bookSelectors';
 import { updatePageAsync, deletePageAsync } from '../redux/book/bookActions';
 
 import './Page.scss';
-const Page = ({ isLoading, page, updatePageAsync, deletePageAsync }) => (
+const Page = ({ item, updatePageAsync, deletePageAsync }) => (
 	<Item
-		isLoading={isLoading}
-		item={page}
-		handleUpdate={(value) => updatePageAsync({ ...page, name: value })}
-		handleDelete={() => deletePageAsync(page)}
+		item={item}
+		handleUpdate={(value) => updatePageAsync({ ...item, name: value })}
+		handleDelete={() => deletePageAsync(item)}
 	>
 		<div className="Page">
 			<div className="tool"><i>(this is where the toolbar will be)</i></div>
 			<div className="text">
-				<BlurTextArea
-					id={page && page.id}
-					value={page && page.text}
-					onChange={(value) => updatePageAsync({ ...page, text: value })}
+				<BlurInput
+					component="textarea"
+					id={item.id}
+					value={item.text}
+					onChange={(value) => updatePageAsync({ ...item, text: value })}
 					placeholder="(no text)" />
 			</div>
 		</div>
@@ -30,10 +33,14 @@ const Page = ({ isLoading, page, updatePageAsync, deletePageAsync }) => (
 
 const mapStateToProps = createStructuredSelector({
 	isLoading: selectPageIsLoading,
-	page: selectPage
+	item: selectPage
 });
 const mapDispatchToProps = (dispatch) => ({
 	updatePageAsync: (page) => dispatch(updatePageAsync(page)),
 	deletePageAsync: (page) => dispatch(deletePageAsync(page))
 });
-export default connect(mapStateToProps, mapDispatchToProps)(Page);
+export default compose(
+	connect(mapStateToProps, mapDispatchToProps),
+	withSpinner,
+	withMissing
+)(Page);

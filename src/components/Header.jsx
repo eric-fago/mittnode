@@ -19,7 +19,9 @@ const Header = ({ currentUser }) => (
 				<Logo className="logo" />
 				<span className="text">Mittnode</span>
 			</Link>
-			{ifelse(currentUser, <Books />)}
+			<div className="book">
+				{ifelse(currentUser, <Books />)}
+			</div>
 		</div>
 		<div className="options">
 			{ifelse(currentUser, <div className="option" onClick={() => auth.signOut()}>SIGN OUT</div>)}

@@ -1,7 +1,5 @@
 import React from 'react';
 
-import Input from './Input';
-
 class BlurInput extends React.Component {
 	constructor(props) {
 		super(props);
@@ -31,14 +29,14 @@ class BlurInput extends React.Component {
 	};
 
 	render() {
-		return (
-			<Input
-				{...this.props}
-				onChange={(e) => this.handleChange(e.target.value)}
-				onBlur={() => this.handleUpdate()}
-				value={this.state.value}
-			/>
-		);
+		const { value } = this.state;
+		const { component, ...props } = this.props;
+		return React.createElement(component, {
+			...props,
+			value,
+			onChange: (e) => this.handleChange(e.target.value),
+			onBlur: () => this.handleUpdate(),
+		});
 	}
 }
 

@@ -1,18 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
 import Item from './Item';
 import Pages from './Pages';
+import withMissing from './withMissing';
+import withSpinner from './withSpinner';
 import { selectSectionIsLoading, selectSection } from '../redux/book/bookSelectors';
 import { updateSectionAsync, deleteSectionAsync } from '../redux/book/bookActions';
 
-const Section = ({ isLoading, section, updateSectionAsync, deleteSectionAsync }) => (
+const Section = ({ item, updateSectionAsync, deleteSectionAsync }) => (
 	<Item
-		isLoading={isLoading}
-		item={section}
-		handleUpdate={(value) => updateSectionAsync({ ...section, name: value })}
-		handleDelete={() => deleteSectionAsync(section)}
+		item={item}
+		handleUpdate={(value) => updateSectionAsync({ ...item, name: value })}
+		handleDelete={() => deleteSectionAsync(item)}
 	>
 		<Pages />
 	</Item>
@@ -20,10 +22,14 @@ const Section = ({ isLoading, section, updateSectionAsync, deleteSectionAsync })
 
 const mapStateToProps = createStructuredSelector({
 	isLoading: selectSectionIsLoading,
-	section: selectSection
+	item: selectSection
 });
 const mapDispatchToProps = (dispatch) => ({
 	updateSectionAsync: (section) => dispatch(updateSectionAsync(section)),
 	deleteSectionAsync: (section) => dispatch(deleteSectionAsync(section))
 });
-export default connect(mapStateToProps, mapDispatchToProps)(Section);
+export default compose(
+	connect(mapStateToProps, mapDispatchToProps),
+	withSpinner,
+	withMissing
+)(Section);
