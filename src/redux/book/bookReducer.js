@@ -1,3 +1,5 @@
+import BookActionTypes from './bookActionTypes';
+
 const INITIAL_STATE = {
 	isLoading: true,
 	books: [],
@@ -12,11 +14,9 @@ const INITIAL_STATE = {
 };
 
 const bookReducer = (state = INITIAL_STATE, action) => {
-
-	return {
-		...state,
-		...((action && action.payload) || {})
-	}
+	if (action.type.startsWith(BookActionTypes.PREFIX))
+		return { ...state, ...((action && action.payload) || {}) };
+	return state;
 };
 
 export default bookReducer;

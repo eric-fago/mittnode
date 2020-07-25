@@ -5,7 +5,7 @@ import Button from './Button';
 import Input from './Input';
 
 import './Item.scss';
-import deleteIcon from '../assets/delete.png';
+import { ReactComponent as DeleteIcon } from '../assets/delete.svg';
 
 const Item = ({ item, handleUpdate, handleDelete, children }) => (
 	<div className="Item">
@@ -15,7 +15,7 @@ const Item = ({ item, handleUpdate, handleDelete, children }) => (
 				value={item.name}
 				onChange={handleUpdate}
 				placeholder="(no name)" />
-			<Button icon={deleteIcon} text="DELETE" handle={handleDelete} />
+			<Button icon={DeleteIcon} text="DELETE" handle={handleDelete} />
 		</div>
 		<div className="main">
 			{children}

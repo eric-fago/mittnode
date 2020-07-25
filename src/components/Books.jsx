@@ -10,13 +10,13 @@ import { createBookAsync } from '../redux/book/bookActions';
 import { selectIsLoading, selectBook, selectBooks } from '../redux/book/bookSelectors';
 
 import './Books.scss';
-import downIcon from '../assets/down.png';
+import { ReactComponent as DownIcon } from '../assets/down.svg';
 
 const Books = ({ book, books, createBookAsync }) => (
 	<div className="Books">
 		<div className="head">
 			<span className="name">/ {book ? (book.name || '(no name)') : '(nothing selected)'} </span>
-			<img src={downIcon} alt="down" className="icon" />
+			<DownIcon className="icon" />
 		</div>
 		<div className="drop">
 			<List createText="ADD A BOOK" handleCreate={createBookAsync}>

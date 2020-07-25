@@ -7,6 +7,7 @@ import Header from './components/Header';
 import { auth } from './firebase/firebase'
 import AuthPage from './pages/AuthPage';
 import BookPage from './pages/BookPage';
+import { selectMode } from './redux/conf/confSelectors';
 import { setCurrentUser } from './redux/user/userActions';
 import { selectCurrentUser } from './redux/user/userSelectors';
 
@@ -16,20 +17,23 @@ class App extends React.Component {
 
 	componentDidMount() {
 		this.unsubsribeFromAuth = auth.onAuthStateChanged(user => {
-			this.props.setCurrentUser(user);
+			const { setCurrentUser } = this.props;
+			setCurrentUser(user);
 		});
 	}
 
 	render() {
+		const { mode, currentUser } = this.props;
+
 		return (
-			<div className="App">
+			<div className={`App ${mode}`}>
 				<div className="head">
 					<Header />
 				</div>
 				<div className="main">
 					<Switch>
-						<Route exact path="/auth" render={() => this.props.currentUser ? <Redirect to="/" /> : <AuthPage />} />
-						<Route path="/" render={() => this.props.currentUser ? <BookPage /> : <Redirect to="/auth" />} />
+						<Route exact path="/auth" render={() => currentUser ? <Redirect to="/" /> : <AuthPage />} />
+						<Route path="/" render={() => currentUser ? <BookPage /> : <Redirect to="/auth" />} />
 					</Switch>
 				</div>
 			</div>
@@ -38,6 +42,7 @@ class App extends React.Component {
 }
 
 const mapStateToProps = createStructuredSelector({
+	mode: selectMode,
 	currentUser: selectCurrentUser
 });
 const mapDispatchToProps = (dispatch) => ({

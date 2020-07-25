@@ -14,11 +14,19 @@
 
 	&.selected {
 		background: #087E8B;
-		color: #FFFFFF;
+		color: white;
 
 		&:hover {
 			background: #077380;
-			color: #FFFFFF;
+			color: white;
+		}
+	}
+}
+
+.Dark {
+	.ListItem {
+		&:hover {
+			background-color: #043F46;
 		}
 	}
 }

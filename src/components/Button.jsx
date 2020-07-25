@@ -3,7 +3,7 @@ import React from 'react';
 import './Button.scss';
 
 const Button = ({ icon, text, type, classes, handle, children }) => {
-	const iconMarkup = icon ? (<img className="icon" src={icon} alt={text} />) : '';
+	const iconMarkup = icon ? (React.createElement(icon, { className: 'icon' })) : '';
 	const textMarkup = children ? (<span className="text">{children}</span>) : '';
 
 	return (

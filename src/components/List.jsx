@@ -3,12 +3,12 @@ import React from 'react';
 import Button from './Button';
 
 import './List.scss';
-import createIcon from '../assets/create.png';
+import { ReactComponent as CreateIcon } from '../assets/create.svg';
 
 const List = ({ createText, handleCreate, children }) => (
 	<div className="List">
 		<div className="create">
-			<Button icon={createIcon} text={createText} handle={handleCreate}>{createText}</Button>
+			<Button icon={CreateIcon} text={createText} handle={handleCreate}>{createText}</Button>
 		</div>
 		<div className="list">
 			{children}

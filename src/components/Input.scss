@@ -1,4 +1,4 @@
-Input {
+.Input {
 	min-width: 0;
 	width: 100%;
 	margin: 10px 0;
@@ -10,5 +10,13 @@ Input {
 
 	&:focus {
 		outline: none;
+	}
+}
+
+.Dark {
+	.Input {
+		background-color: black;
+		border-bottom: 1px solid #043F46;
+		color: white;
 	}
 }

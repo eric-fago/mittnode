@@ -51,7 +51,36 @@
 	}
 }
 
+.Dark {
+	.Button {
+		color: white;
 
+		&:hover {
+			background-color: #043F46
+		}
+	
+		&:active {
+			background-color: #077380;
+		}
+	
+		&.alternate {
+			background-color: #077380;
+			color: white;
+	
+			&:hover {
+				background-color: #043F46;
+				color: white;
+			}
+	
+			&:active {
+				background-color: #077380;
+				color: white;
+			}
+		}
 
-
-
+		.icon {
+			fill: white;
+			stroke: white;
+		}
+	}
+}

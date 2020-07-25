@@ -20,6 +20,11 @@ a {
 	display: flex;
 	flex-direction: column;
 
+	&.Dark {
+		background-color: black;
+		color: white;
+	}
+
 	>.head {
 		height: 50px;
 	}

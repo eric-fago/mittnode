@@ -10,17 +10,8 @@
 		justify-content: space-between;
 		align-items: center;
 
-		>input {
+		>*:first-child {
 			flex: 1;
-			display: inline-block;
-			border: none;
-			border-bottom: 1px solid #BFD7EA;
-			font-size: 1.2em;
-			overflow: initial;
-	
-			&:focus {
-				outline: none;
-			}
 		}
 	}
 
