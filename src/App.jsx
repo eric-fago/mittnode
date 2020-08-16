@@ -4,11 +4,10 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import Header from './components/Header';
-import { auth } from './firebase/firebase'
 import AuthPage from './pages/AuthPage';
 import BookPage from './pages/BookPage';
 import { selectMode } from './redux/conf/confSelectors';
-import { setCurrentUser } from './redux/user/userActions';
+import { checkUserSession } from './redux/user/userActions';
 import { selectCurrentUser } from './redux/user/userSelectors';
 
 import './App.scss';
@@ -16,10 +15,8 @@ import './App.scss';
 class App extends React.Component {
 
 	componentDidMount() {
-		this.unsubsribeFromAuth = auth.onAuthStateChanged(user => {
-			const { setCurrentUser } = this.props;
-			setCurrentUser(user);
-		});
+		const { checkUserSession } = this.props;
+		checkUserSession();
 	}
 
 	render() {
@@ -46,6 +43,6 @@ const mapStateToProps = createStructuredSelector({
 	currentUser: selectCurrentUser
 });
 const mapDispatchToProps = (dispatch) => ({
-	setCurrentUser: (user) => dispatch(setCurrentUser(user))
+	checkUserSession: (user) => dispatch(checkUserSession(user))
 });
 export default connect(mapStateToProps, mapDispatchToProps)(App);

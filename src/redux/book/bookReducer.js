@@ -15,7 +15,7 @@ const INITIAL_STATE = {
 
 const bookReducer = (state = INITIAL_STATE, action) => {
 	if (action.type.startsWith(BookActionTypes.PREFIX))
-		return { ...state, ...((action && action.payload) || {}) };
+		return { ...state, ...((action && action.state) || {}) };
 	return state;
 };
 

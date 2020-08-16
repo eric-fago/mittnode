@@ -8,14 +8,14 @@ import Item from './Item';
 import withMissing from './withMissing';
 import withSpinner from './withSpinner';
 import { selectPage, selectPageIsLoading } from '../redux/book/bookSelectors';
-import { updatePageAsync, deletePageAsync } from '../redux/book/bookActions';
+import { updatePage, deletePage } from '../redux/book/bookActions';
 
 import './Page.scss';
-const Page = ({ item, updatePageAsync, deletePageAsync }) => (
+const Page = ({ item, updatePage, deletePage }) => (
 	<Item
 		item={item}
-		handleUpdate={(value) => updatePageAsync({ ...item, name: value })}
-		handleDelete={() => deletePageAsync(item)}
+		handleUpdate={(value) => updatePage({ ...item, name: value })}
+		handleDelete={() => deletePage(item)}
 	>
 		<div className="Page">
 			<div className="tool"><i>(this is where the toolbar will be)</i></div>
@@ -24,7 +24,7 @@ const Page = ({ item, updatePageAsync, deletePageAsync }) => (
 					component="textarea"
 					id={item.id}
 					value={item.text}
-					onChange={(value) => updatePageAsync({ ...item, text: value })}
+					onChange={(value) => updatePage({ ...item, text: value })}
 					placeholder="(no text)" />
 			</div>
 		</div>
@@ -36,8 +36,8 @@ const mapStateToProps = createStructuredSelector({
 	item: selectPage
 });
 const mapDispatchToProps = (dispatch) => ({
-	updatePageAsync: (page) => dispatch(updatePageAsync(page)),
-	deletePageAsync: (page) => dispatch(deletePageAsync(page))
+	updatePage: (page) => dispatch(updatePage(page)),
+	deletePage: (page) => dispatch(deletePage(page))
 });
 export default compose(
 	connect(mapStateToProps, mapDispatchToProps),

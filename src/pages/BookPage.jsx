@@ -4,14 +4,14 @@ import { connect } from 'react-redux';
 import Book from '../components/Book';
 import Page from '../components/Page';
 import Section from '../components/Section';
-import { initializeAsync } from '../redux/book/bookActions';
+import { initialize } from '../redux/book/bookActions';
 
 import './BookPage.scss';
 
 class BookPage extends React.Component {
 	componentDidMount() {
-		const { initializeAsync } = this.props;
-		initializeAsync();
+		const { initialize } = this.props;
+		initialize();
 	}
 
 	render() {
@@ -26,6 +26,6 @@ class BookPage extends React.Component {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-	initializeAsync: () => dispatch(initializeAsync())
+	initialize: () => dispatch(initialize())
 });
 export default connect(null, mapDispatchToProps)(BookPage);

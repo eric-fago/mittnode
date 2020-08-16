@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
 
 import Books from './Books';
-import { auth } from '../firebase/firebase';
 import { toggleMode } from '../redux/conf/confActions';
 import { selectMode } from '../redux/conf/confSelectors';
+import { signOutStart } from '../redux/user/userActions';
 import { selectCurrentUser } from '../redux/user/userSelectors';
 
 import './Header.scss';
@@ -14,7 +14,7 @@ import { ReactComponent as Logo } from '../assets/logo.svg';
 
 const ifelse = (condition, ifComponent, elseComponent) => condition ? ifComponent : elseComponent;
 
-const Header = ({ mode, currentUser, toggleMode }) => (
+const Header = ({ mode, currentUser, signOutStart, toggleMode }) => (
 	<div className="Header">
 		<div className="menu">
 			<Link to="/">
@@ -27,7 +27,7 @@ const Header = ({ mode, currentUser, toggleMode }) => (
 		</div>
 		<div className="options">
 			<div className="option" onClick={toggleMode}>{mode}</div>
-			{ifelse(currentUser, <div className="option" onClick={() => auth.signOut()}>SIGN OUT</div>)}
+			{ifelse(currentUser, <div className="option" onClick={signOutStart}>SIGN OUT</div>)}
 		</div>
 	</div>
 );
@@ -37,6 +37,7 @@ const mapStateToProps = createStructuredSelector({
 	currentUser: selectCurrentUser
 });
 const mapDispatchToProps = (dispatch) => ({
+	signOutStart: () => dispatch(signOutStart()),
 	toggleMode: () => dispatch(toggleMode())
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

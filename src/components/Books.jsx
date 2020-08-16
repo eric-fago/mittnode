@@ -6,20 +6,20 @@ import { createStructuredSelector } from 'reselect';
 import List from './List';
 import BookItem from './BookItem';
 import withSpinner from './withSpinner';
-import { createBookAsync } from '../redux/book/bookActions';
+import { createBook } from '../redux/book/bookActions';
 import { selectIsLoading, selectBook, selectBooks } from '../redux/book/bookSelectors';
 
 import './Books.scss';
 import { ReactComponent as DownIcon } from '../assets/down.svg';
 
-const Books = ({ book, books, createBookAsync }) => (
+const Books = ({ book, books, createBook }) => (
 	<div className="Books">
 		<div className="head">
 			<span className="name">/ {book ? (book.name || '(no name)') : '(nothing selected)'} </span>
 			<DownIcon className="icon" />
 		</div>
 		<div className="drop">
-			<List createText="ADD A BOOK" handleCreate={createBookAsync}>
+			<List createText="ADD A BOOK" handleCreate={createBook}>
 				{books.map(book => <BookItem key={book.id} book={book} />)}
 			</List>
 		</div>
@@ -32,7 +32,7 @@ const mapStateToProps = createStructuredSelector({
 	book: selectBook
 });
 const mapDispatchToProps = (dispatch) => ({
-	createBookAsync: () => dispatch(createBookAsync())
+	createBook: () => dispatch(createBook())
 });
 export default compose(
 	connect(mapStateToProps, mapDispatchToProps),

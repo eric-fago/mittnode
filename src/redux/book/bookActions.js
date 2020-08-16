@@ -1,239 +1,137 @@
 import BookActionTypes from './bookActionTypes';
-import { selectBooks, selectBookId, selectSections, selectSectionId, selectPages } from './bookSelectors';
-import dataService from '../../services/dataService';
 
-const action = (type, payload) => ({
-	type, payload
+export const initialize = () => ({
+	type: BookActionTypes.INITIALIZE,
+	state: { isLoading: true }
 });
 
-export const initializeAsync = () => {
-	return async (dispatch) => {
-		dispatch(action(
-			BookActionTypes.INITIALIZE,
-			{ isLoading: true }
-		));
+export const finishInitialize = (state) => ({
+	type: BookActionTypes.FINISH_INITIALIZE,
+	state: { ...state, isLoading: false }
+});
 
-		const books = await dataService.book.readAll();
-		const book = books.find(b => true);
-		const bookId = book && book.id;
-		const sections = await dataService.section.readAll({ bookId });
-		const section = sections.find(s => true);
-		const sectionId = section && section.id;
-		const pages = await dataService.page.readAll({ bookId, sectionId });
-		const page = pages.find(p => true);
-		const pageId = page && page.id;
+export const createBook = () => ({
+	type: BookActionTypes.CREATE_BOOK,
+	state: { bookIsLoading: true }
+});
 
-		dispatch(action(
-			BookActionTypes.FINISH_INITIALIZE,
-			{ isLoading: false, books, bookId, sections, sectionId, pages, pageId }
-		));
-	};
-};
+export const finishCreateBook = (state) => ({
+	type: BookActionTypes.FINISH_CREATE_BOOK,
+	state: { ...state, bookIsLoading: false }
+});
 
-export const createBookAsync = () => {
-	return async (dispatch, getState) => {
-		dispatch(action(
-			BookActionTypes.CREATE_BOOK,
-			{ bookIsLoading: true }
-		));
+export const selectBook = (book) => ({
+	type: BookActionTypes.SELECT_BOOK,
+	payload: book,
+	state: { bookIsLoading: true }
+});
 
-		const book = await dataService.book.create({ name: 'Book' });
-		const books = [...selectBooks(getState()), book];
-		const bookId = book.id;
+export const finishSelectBook = (state) => ({
+	type: BookActionTypes.FINISH_SELECT_BOOK,
+	state: { ...state, bookIsLoading: false }
+});
 
-		dispatch(action(
-			BookActionTypes.FINISH_CREATE_BOOK,
-			{ bookIsLoading: false, books, bookId, sections: [], sectionId: null, pages: [], pageId: null }
-		));
-	};
-};
+export const updateBook = (book) => ({
+	type: BookActionTypes.UPDATE_BOOK,
+	payload: book
+});
 
-export const selectBookAsync = (book) => {
-	return async (dispatch) => {
-		dispatch(action(
-			BookActionTypes.SELECT_BOOK,
-			{ bookIsLoading: true }
-		));
+export const finishUpdateBook = (state) => ({
+	type: BookActionTypes.FINISH_UPDATE_BOOK,
+	state
+});
 
-		const bookId = book.id;
-		const sections = await dataService.section.readAll({ bookId });
-		const section = sections.find(s => true);
-		const sectionId = section && section.id;
-		const pages = await dataService.page.readAll({ bookId, sectionId });
-		const page = pages.find(p => true);
-		const pageId = page && page.id;
+export const deleteBook = (book) => ({
+	type: BookActionTypes.DELETE_BOOK,
+	payload: book,
+	state: { bookIsLoading: true }
+});
 
-		dispatch(action(
-			BookActionTypes.FINISH_SELECT_BOOK,
-			{ bookIsLoading: false, bookId, sections, sectionId, pages, pageId }
-		));
-	};
-};
+export const finishDeleteBook = (state) => ({
+	type: BookActionTypes.FINISH_DELETE_BOOK,
+	state: { ...state, bookIsLoading: false }
+});
 
-export const updateBookAsync = (book) => {
-	return async (dispatch, getState) => {
-		book = await dataService.book.update(book);
-		const books = [...selectBooks(getState())];
-		const bookIndex = books.findIndex(b => b.id === book.id);
-		books[bookIndex] = book;
+export const createSection = () => ({
+	type: BookActionTypes.CREATE_SECTION,
+	state: { sectionIsLoading: true }
+});
 
-		dispatch(action(
-			BookActionTypes.FINISH_UPDATE_BOOK,
-			{ books }
-		));
-	};
-};
+export const finishCreateSection = (state) => ({
+	type: BookActionTypes.FINISH_CREATE_SECTION,
+	state: { ...state, sectionIsLoading: false }
+});
 
-export const deleteBookAsync = (book) => {
-	return async (dispatch, getState) => {
-		dispatch(action(
-			BookActionTypes.DELETE_BOOK,
-			{ bookIsLoading: true }
-		));
+export const selectSection = (section) => ({
+	type: BookActionTypes.SELECT_SECTION,
+	payload: section,
+	state: { sectionIsLoading: true }
+});
 
-		await dataService.book.delete(book);
-		const books = selectBooks(getState()).filter(b => b.id !== book.id);
+export const finishSelectSection = (state) => ({
+	type: BookActionTypes.FINISH_SELECT_SECTION,
+	state: { ...state, sectionIsLoading: false }
+});
 
-		dispatch(action(
-			BookActionTypes.FINISH_DELETE_BOOK,
-			{ bookIsLoading: false, books, bookId: null, sections: [], sectionId: null, pages: [], pageId: null }
-		));
-	}
-};
+export const updateSection = (section) => ({
+	type: BookActionTypes.UPDATE_SECTION,
+	payload: section
+});
 
-export const createSectionAsync = () => {
-	return async (dispatch, getState) => {
-		dispatch(action(
-			BookActionTypes.CREATE_SECTION,
-			{ sectionIsLoading: true }
-		));
+export const finishUpdateSection = (state) => ({
+	type: BookActionTypes.FINISH_UPDATE_SECTION,
+	state
+});
 
-		const bookId = selectBookId(getState());
-		const section = await dataService.section.create({ bookId, name: 'Section' });
-		const sections = [...selectSections(getState()), section];
-		const sectionId = section.id;
+export const deleteSection = (section) => ({
+	type: BookActionTypes.DELETE_SECTION,
+	payload: section,
+	state: { sectionIsLoading: true }
+});
 
-		dispatch(action(
-			BookActionTypes.FINISH_CREATE_SECTION,
-			{ sectionIsLoading: false, sections, sectionId, pages: [], pageId: null }
-		));
-	};
-};
+export const finishDeleteSection = (state) => ({
+	type: BookActionTypes.FINISH_DELETE_SECTION,
+	state: { ...state, sectionIsLoading: false }
+});
 
-export const selectSectionAsync = (section) => {
-	return async (dispatch) => {
-		dispatch(action(
-			BookActionTypes.SELECT_SECTION,
-			{ sectionIsLoading: true }
-		));
+export const createPage = () => ({
+	type: BookActionTypes.CREATE_PAGE,
+	state: { pageIsLoading: true }
+});
 
-		const bookId = section.bookId;
-		const sectionId = section.id;
-		const pages = await dataService.page.readAll({ bookId, sectionId });
-		const page = pages.find(s => true);
-		const pageId = page && page.id;
+export const finishCreatePage = (state) => ({
+	type: BookActionTypes.FINISH_CREATE_PAGE,
+	state: { ...state, pageIsLoading: false }
+});
 
-		dispatch(action(
-			BookActionTypes.FINISH_SELECT_SECTION,
-			{ sectionIsLoading: false, sectionId, pages, pageId }
-		));
-	};
-};
+export const selectPage = (page) => ({
+	type: BookActionTypes.SELECT_PAGE,
+	payload: page,
+	state: { pageIsLoading: true }
+});
 
-export const updateSectionAsync = (section) => {
-	return async (dispatch, getState) => {
-		section = await dataService.section.update(section);
-		const sections = [...selectSections(getState())];
-		const sectionIndex = sections.findIndex(s => s.id === section.id);
-		sections[sectionIndex] = section;
+export const finishSelectPage = (state) => ({
+	type: BookActionTypes.FINISH_SELECT_PAGE,
+	state: { ...state, pageIsLoading: false }
+});
 
-		dispatch(action(
-			BookActionTypes.FINISH_UPDATE_SECTION,
-			{ sections }
-		));
-	};
-};
+export const updatePage = (page) => ({
+	type: BookActionTypes.UPDATE_PAGE,
+	payload: page
+});
 
-export const deleteSectionAsync = (section) => {
-	return async (dispatch, getState) => {
-		dispatch(action(
-			BookActionTypes.DELETE_SECTION,
-			{ sectionIsLoading: true }
-		));
+export const finishUpdatePage = (state) => ({
+	type: BookActionTypes.FINISH_UPDATE_PAGE,
+	state
+});
 
-		await dataService.section.delete(section);
-		const sections = selectSections(getState()).filter(s => s.id !== section.id);
+export const deletePage = (page) => ({
+	type: BookActionTypes.DELETE_PAGE,
+	payload: page,
+	state: { pageIsLoading: true }
+});
 
-		dispatch(action(
-			BookActionTypes.FINISH_DELETE_SECTION,
-			{ sectionIsLoading: false, sections, sectionId: null, pages: [], pageId: null }
-		));
-	}
-};
-
-export const createPageAsync = () => {
-	return async (dispatch, getState) => {
-		dispatch(action(
-			BookActionTypes.CREATE_PAGE,
-			{ pageIsLoading: true }
-		));
-
-		const bookId = selectBookId(getState());
-		const sectionId = selectSectionId(getState());
-		const page = await dataService.page.create({ bookId, sectionId, name: 'Page', text: '' });
-		const pages = [...selectPages(getState()), page];
-		const pageId = page.id;
-
-		dispatch(action(
-			BookActionTypes.FINISH_CREATE_PAGE,
-			{ pageIsLoading: false, pages, pageId }
-		));
-	};
-};
-
-export const selectPageAsync = (page) => {
-	return async (dispatch) => {
-		dispatch(action(
-			BookActionTypes.SELECT_PAGE,
-			{ pageIsLoading: true }
-		));
-
-		const pageId = page.id;
-
-		dispatch(action(
-			BookActionTypes.FINISH_SELECT_SECTION,
-			{ pageIsLoading: false, pageId }
-		));
-	};
-};
-
-export const updatePageAsync = (page) => {
-	return async (dispatch, getState) => {
-		page = await dataService.page.update(page);
-		const pages = [...selectPages(getState())];
-		const pageIndex = pages.findIndex(p => p.id === page.id);
-		pages[pageIndex] = page;
-
-		dispatch(action(
-			BookActionTypes.FINISH_UPDATE_PAGE,
-			{ pages }
-		));
-	};
-};
-
-export const deletePageAsync = (page) => {
-	return async (dispatch, getState) => {
-		dispatch(action(
-			BookActionTypes.DELETE_PAGE,
-			{ pageIsLoading: true }
-		));
-
-		await dataService.page.delete(page);
-		const pages = selectPages(getState()).filter(p => p.id !== page.id);
-
-		dispatch(action(
-			BookActionTypes.FINISH_DELETE_PAGE,
-			{ pageIsLoading: false, pages, pageId: null }
-		));
-	}
-};
+export const finishDeletePage = (state) => ({
+	type: BookActionTypes.FINISH_DELETE_PAGE,
+	state: { ...state, pageIsLoading: false }
+});

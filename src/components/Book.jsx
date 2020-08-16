@@ -8,13 +8,13 @@ import Sections from './Sections';
 import withMissing from './withMissing';
 import withSpinner from './withSpinner';
 import { selectBookIsLoading, selectBook } from '../redux/book/bookSelectors';
-import { updateBookAsync, deleteBookAsync } from '../redux/book/bookActions';
+import { updateBook, deleteBook } from '../redux/book/bookActions';
 
-const Book = ({ item, updateBookAsync, deleteBookAsync }) => (
+const Book = ({ item, updateBook, deleteBook }) => (
 	<Item
 		item={item}
-		handleUpdate={(value) => updateBookAsync({ ...item, name: value })}
-		handleDelete={() => deleteBookAsync(item)}
+		handleUpdate={(value) => updateBook({ ...item, name: value })}
+		handleDelete={() => deleteBook(item)}
 	>
 		<Sections />
 	</Item >
@@ -25,8 +25,8 @@ const mapStateToProps = createStructuredSelector({
 	item: selectBook
 });
 const mapDispatchToProps = (dispatch) => ({
-	updateBookAsync: (book) => dispatch(updateBookAsync(book)),
-	deleteBookAsync: (book) => dispatch(deleteBookAsync(book))
+	updateBook: (book) => dispatch(updateBook(book)),
+	deleteBook: (book) => dispatch(deleteBook(book))
 });
 export default compose(
 	connect(mapStateToProps, mapDispatchToProps),
