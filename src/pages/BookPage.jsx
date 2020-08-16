@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import Book from '../components/Book';
@@ -8,21 +8,18 @@ import { initialize } from '../redux/book/bookActions';
 
 import './BookPage.scss';
 
-class BookPage extends React.Component {
-	componentDidMount() {
-		const { initialize } = this.props;
+const BookPage = ({ initialize }) => {
+	useEffect(() => {
 		initialize();
-	}
+	}, [initialize]);
 
-	render() {
-		return (
-			<div className="BookPage">
-				<Book />
-				<Section />
-				<Page />
-			</div>
-		)
-	}
+	return (
+		<div className="BookPage">
+			<Book />
+			<Section />
+			<Page />
+		</div>
+	)
 };
 
 const mapDispatchToProps = (dispatch) => ({

@@ -1,43 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-class BlurInput extends React.Component {
-	constructor(props) {
-		super(props);
+import useChange from '../hooks/useChange';
 
-		this.state = {
-			value: props.value
-		};
-	}
+const BlurInput = ({ id, value, component, onChange, ...props }) => {
+	const [currValue, setCurrValue] = useState(value);
 
-	componentDidUpdate(prevProps) {
-		const { id: prevId } = prevProps;
-		const { id: currId, value } = this.props;
+	useChange(id, () => {
+		setCurrValue(value);
+	}, [value, setCurrValue]);
 
-		if (prevId === currId)
+	const handleChange = (value) => {
+		setCurrValue(value);
+	};
+
+	const handleUpdate = () => {
+		if (value === currValue)
 			return;
 
-		this.setState({ value });
-	}
-
-	handleChange = (value) => {
-		this.setState({ value });
+		onChange(currValue);
 	};
 
-	handleUpdate = () => {
-		const { onChange } = this.props;
-		onChange(this.state.value);
-	};
-
-	render() {
-		const { value } = this.state;
-		const { component, ...props } = this.props;
-		return React.createElement(component, {
-			...props,
-			value,
-			onChange: (e) => this.handleChange(e.target.value),
-			onBlur: () => this.handleUpdate(),
-		});
-	}
+	return React.createElement(component, {
+		...props,
+		value: currValue,
+		onChange: (e) => handleChange(e.target.value),
+		onBlur: () => handleUpdate(),
+	});
 }
 
 export default BlurInput;
